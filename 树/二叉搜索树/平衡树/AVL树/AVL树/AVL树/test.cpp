@@ -53,6 +53,9 @@ int main()
 	cout << "树的高度:" << tree.height() << endl;
 	cout << "树的详细信息:" << endl;
 	tree.print();
+	cout << endl;
+	cout << "1的前驱:" << tree.predecessor(1) << endl;
+	cout << "4的后继:" << tree.successor(4) << endl;
 	//检查内存泄漏
 	#ifdef _DEBUG
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);

@@ -16,6 +16,8 @@ using namespace std;
 //AVL树的插入和删除操作的时间复杂度为O(logn)
 //AVL树的查找操作的时间复杂度为O(logn)
 
+
+#define INF 2147483647
 //AVL树的节点
 template<class T>
 class AVLNode
@@ -46,6 +48,10 @@ public:
     void inOrder();
     // 后序遍历"AVL树"
     void postOrder();
+
+	int predecessor(T key);//查找前驱
+
+	int successor(T key);//查找后继
 
     // (递归实现)查找"AVL树"中键值为key的节点
     AVLNode<T>* search(T key);
@@ -79,6 +85,10 @@ private:
     void inOrder(AVLNode<T>* tree) const;
     // 后序遍历"AVL树"
     void postOrder(AVLNode<T>* tree) const;
+
+	AVLNode<T>* predecessor(AVLNode<T>* tree, T key);//查找前驱
+
+	AVLNode<T>* successor(AVLNode<T>* tree, T key);//查找后继
 
     // (递归实现)查找"AVL树x"中键值为key的节点
     AVLNode<T>* search(AVLNode<T>* x, T key) const;
@@ -446,6 +456,94 @@ AVLNode<T>* AVL<T>::iterativeSearch(T key)
 	else {
 		cout << "The key is not in the tree!" << endl;
 		return NULL;
+	}
+}
+
+//查找前驱
+template<class T>
+AVLNode<T>* AVL<T>::predecessor(AVLNode<T>* tree, T key)
+{
+	AVLNode<T>* p = iterativeSearch(tree, key);
+	if (p == NULL)
+	{
+		cout << "The key is not in the tree!" << endl;
+		return NULL;
+	}
+	if (p->left != NULL)//左子树不为空，前驱是左子树中的最大节点
+		return maximum(p->left);
+	//左子树为空
+	AVLNode<T>* parent = NULL;
+	AVLNode<T>* x = tree;
+	while (x != NULL)
+	{
+		if (key == x->key)
+			break;
+		else if (key < x->key)
+			x = x->left;
+		else
+		{
+			parent = x;
+			x = x->right;
+		}
+	}
+	if (parent == NULL) cout << key << " is the minimum." << endl;
+	return parent;
+}
+template<class T>
+int AVL<T>::predecessor(T key)
+{
+	AVLNode<T>* p = predecessor(root, key);
+	if (p != NULL)
+		return p->key;
+	else
+	{
+		//cout << "The key is not in the tree!" << endl;
+		return -INF;
+		//return (T)NULL;
+	}
+}
+
+//查找后继
+template<class T>
+AVLNode<T>* AVL<T>::successor(AVLNode<T>* tree, T key)
+{
+	AVLNode<T>* p = iterativeSearch(tree, key);
+	if (p == NULL)
+	{
+		cout << "The key is not in the tree!" << endl;
+		return NULL;
+	}
+	if (p->right != NULL)//右子树不为空，后继是右子树中的最小节点
+		return minimum(p->right);
+	//右子树为空
+	AVLNode<T>* parent = NULL;
+	AVLNode<T>* x = tree;
+	while (x != NULL)
+	{
+		if (key == x->key)
+			break;
+		else if (key < x->key)
+		{
+			parent = x;
+			x = x->left;
+		}
+		else
+			x = x->right;
+	}
+	if (parent == NULL) cout << key << " is the maximum." << endl;
+	return parent;
+}
+template<class T>
+int AVL<T>::successor(T key)
+{
+	AVLNode<T>* p = successor(root, key);
+	if (p != NULL)
+		return p->key;
+	else
+	{
+		//cout << "The key is not in the tree!" << endl;
+		return INF;
+		//return (T)NULL;
 	}
 }
 
