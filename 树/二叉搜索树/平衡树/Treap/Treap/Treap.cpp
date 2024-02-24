@@ -144,11 +144,35 @@ int querypre(int id, int value)//查询值为value的节点的前驱
 	else return max(tree[id].value, querypre(tree[id].right, value));//如果当前节点的值小于value，返回当前节点的值和递归查询右子树的最大值
 }
 
-int querysub(int id, int value)//查询值为value的节点的后继
+int querysuc(int id, int value)//查询值为value的节点的后继
 {
 	if (id == 0) return INF;//找不到该节点(实际上是递归结束了),此时为了维护最小值 返回正无穷
-	if (tree[id].value <= value) return querysub(tree[id].right, value);//如果当前节点的值小于等于value，递归查询右子树
-	else return min(tree[id].value, querysub(tree[id].left, value));//如果当前节点的值大于value，返回当前节点的值和递归查询左子树的最小值
+	if (tree[id].value <= value) return querysuc(tree[id].right, value);//如果当前节点的值小于等于value，递归查询右子树
+	else return min(tree[id].value, querysuc(tree[id].left, value));//如果当前节点的值大于value，返回当前节点的值和递归查询左子树的最小值
+}
+
+void preorder(int id)//前序遍历
+{
+	if (id == 0) return;
+	for(int i = 0; i < tree[id].cnt; i++) cout << tree[id].value << " ";
+	preorder(tree[id].left);
+	preorder(tree[id].right);
+}
+
+void inorder(int id)//中序遍历
+{
+	if (id == 0) return;
+	inorder(tree[id].left);
+	for(int i = 0; i < tree[id].cnt; i++) cout << tree[id].value << " ";
+	inorder(tree[id].right);
+}
+
+void postorder(int id)//后序遍历
+{
+	if (id == 0) return;
+	postorder(tree[id].left);
+	postorder(tree[id].right);
+	for(int i = 0; i < tree[id].cnt; i++) cout << tree[id].value << " ";
 }
 
 int main()
@@ -174,7 +198,8 @@ int main()
 		else if (op == 3) printf("%d\n", queryrank(root, x));
 		else if (op == 4) printf("%d\n", queryvalue(root, x));
 		else if (op == 5) printf("%d\n", querypre(root, x));
-		else printf("%d\n", querysub(root, x));
+		else if (op == 6) printf("%d\n", querysuc(root, x));
+		else printf("%d\n", querysuc(root, x));
 	}
 	return 0;
 }
