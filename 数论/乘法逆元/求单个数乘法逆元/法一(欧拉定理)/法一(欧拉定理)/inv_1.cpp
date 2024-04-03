@@ -29,10 +29,16 @@ int qpow(int a, int b, int mod)
 	return res;
 }
 
+int gcd(int a, int b)
+{
+	return b ? gcd(b, a % b) : a;
+}
+
 int main()
 {
 	int a, p;
 	cin >> a >> p;
-	cout << qpow(a, phi(p) - 1, p) << endl;
+	if (gcd(a, p) != 1) cout << "no inverse" << endl;
+	else cout << "inverse: " << qpow(a, phi(p) - 1, p) << endl;
 	return 0;
 }
