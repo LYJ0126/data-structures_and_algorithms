@@ -22,16 +22,15 @@ void dijkstra()
 	vector<pair<int, int>>::iterator it;
 	while (!pq.empty()) {
 		u = pq.top().first;//取当前优先队列中d值最小的进行更新
-		vis[u] = true;
 		pq.pop();
+		if (vis[u]) continue;
+		vis[u] = true;
 		for (it = graph[u].begin(); it != graph[u].end(); it++) {//路径松弛
 			v = it->first;
-			if (!vis[v]) {
-				len = it->second;
-				if (d[v] > d[u] + len) {
-					d[v] = d[u] + len;
-					pq.push(make_pair(v, d[v]));
-				}
+			int len = it->second;
+			if (d[v] > d[u] + len) {
+				d[v] = d[u] + len;
+				if (!vis[v]) pq.push(make_pair(v, d[v]));
 			}
 		}
 	}

@@ -16,8 +16,8 @@ long long fastPower(long long base, long long power, long long mod) {
 }
 int main()
 {
-    long long x, y;
-    cin >> x >> y;
-    cout << fastPower(x, y,998244353) << endl;
+    long long x, y, mod;
+    cin >> x >> y >> mod;
+    cout << fastPower(x, y, mod) << endl;
     return 0;
 }

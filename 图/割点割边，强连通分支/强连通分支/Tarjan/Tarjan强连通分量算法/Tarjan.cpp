@@ -26,7 +26,7 @@ void dfsscc(int u)
 		if (!visited[v]) {
 			dfsscc(v);
 			low[u] = min(low[u], low[v]);
-		}2
+		}
 		else if (ins[v]) {//vÔÚÕ»ÄÚ
 			low[u] = min(low[u], d[v]);
 		}
