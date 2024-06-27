@@ -14,6 +14,10 @@ int main()
 }
 
 /*
+input:
 bacbababaabcbab
 aba
+output:
+Pattern occurs with shift 4
+Pattern occurs with shift 6
 */
