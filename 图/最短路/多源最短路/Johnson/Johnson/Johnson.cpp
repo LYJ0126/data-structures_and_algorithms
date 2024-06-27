@@ -56,16 +56,15 @@ void dijkstra(int s)
 	vector<pair<int, ll>>::iterator it;
 	while (!pq.empty()) {
 		u = pq.top().first;//取当前优先队列中d值最小的进行更新
-		vis[u] = true;
 		pq.pop();
+		if (vis[u]) continue;
+		vis[u] = true;
 		for (it = graph[u].begin(); it != graph[u].end(); it++) {//路径松弛
 			v = it->first;
-			if (!vis[v]) {
-				len = it->second;
-				if (tempd[v] > tempd[u] + len) {
-					tempd[v] = tempd[u] + len;
-					pq.push(make_pair(v, tempd[v]));
-				}
+			len = it->second;
+			if (tempd[v] > tempd[u] + len) {
+				tempd[v] = tempd[u] + len;
+				if (!vis[v]) pq.push(make_pair(v, tempd[v]));
 			}
 		}
 	}
@@ -96,7 +95,7 @@ int main()
 		}
 		//每个点为源点进行一次Dijkstra
 		for (int i = 1; i <= n; ++i) {
-			for (int p = 0; p <= n; ++p) {
+			for (int p = 0; p <= n; ++p) {//dijkstra初始化
 				tempd[p] = INF;
 				vis[p] = false;
 			}
@@ -131,5 +130,10 @@ input:
 3 4 -3
 5 3 4
 output:
-
+全源最短路结果矩阵:
+0       4       11      8       11
+INF     0       7       4       7
+INF     -5      0       -3      0
+INF     -2      5       0       3
+INF     -1      4       1       0
 */
