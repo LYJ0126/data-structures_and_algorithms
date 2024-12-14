@@ -139,6 +139,7 @@ AVL<T>::~AVL()
 {
 	//cout<<"调用析构函数"<<endl;
 	destroy(root);
+	cout<<"AVL树已销毁"<<endl;
 }
 
 //获取树高度
