@@ -4,6 +4,10 @@
 #include <vector>
 using namespace std;
 
+
+//Manacher 算法模板
+//Manacher 算法的复杂度是 O(n) 的，其中 n 是 s 的长度。
+//Manacher 算法的空间复杂度是 O(n) 的，其中 n 是 s 的长度。
 class Solution {
 public:
     string longestPalindrome(string s) {
