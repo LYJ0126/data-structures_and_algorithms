@@ -27,12 +27,12 @@ void select_lsort(vector<int>& a, int s, int e)//选择排序
 	}
 }
 int liner_select(vector<int>& a, int s, int e, int k) {//算法主体
-	if (e - s < 5) {
+	if (e - s < 5) {//当子数组长度小于5时，使用选择排序
 		select_lsort(a, s, e);
 		return a[s + k - 1];
 	}
 	int base;
-	for (int i = 0; i <= (e - s - 4) / 5; i++) {//通过不超过6次比较找出每组的中位数
+	for (int i = 0; i <= (e - s - 4) / 5; i++) {//每5个元素划分一组，通过不超过6次比较找出每组的中位数
 		base = s + i * 5;
 		if (a[base] > a[base + 1])//CEX 1,2
 			swap(a[base], a[base + 1]);
@@ -80,12 +80,11 @@ int liner_select(vector<int>& a, int s, int e, int k) {//算法主体
 }
 int main()
 {
-	int temp;
 	cin >> n >> k;
+	arr.resize(n);
 	for (int i = 0; i < n; i++)
 	{
-		cin >> temp;
-		arr.push_back(temp);
+		cin >> arr[i];
 	}
 	cout << liner_select(arr, 0, n, k) << endl;
 }
